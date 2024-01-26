@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 
 const pages = [
   { label: 'Annonces', link: '/' },
+  { label: 'Details Annonce', link: '/DetailAnnonces' },
   { label: 'Historique de mes annonces', link: '/historique' },
   { label: 'Mes favoris', link: '/ajoutMarque' },
 

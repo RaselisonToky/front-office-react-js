@@ -1,0 +1,43 @@
+.details{
+    text-align: left;
+    margin-left: 55%; /* Ajuster la marge pour une meilleure disposition */
+    /* padding: 20px; */
+}
+.marque{
+    font-size: 36px;
+    font-weight: 700;
+    color: #0d4f78;
+    margin-bottom: 10px;
+}
+.modele{
+    font-size: 18px;
+}
+.prix{
+    font-size: 24px; /* Réduire légèrement la taille du prix */
+  font-weight: 700;
+  color: #0d4f78;
+  margin-bottom: 10px;
+}
+.année {
+    margin-bottom: 10px; /* Ajouter un espacement sous l'année */
+  }
+  
+  .couleur {
+    margin-bottom: 10px; /* Ajouter un espacement sous la couleur */
+  }
+.detailP{
+    background-color: aqua;
+}
+.d {
+    height: 124px;
+    width: max-content;
+    text-align: center;
+    background: #fafafa;
+    float: left;
+    width: 156px;
+    font-size: 23px;
+  }
+
+.ic{
+    color:orange
+}
