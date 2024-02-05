@@ -4,18 +4,12 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 class Annonce extends Component {
 
-    handleValidation = () => {
-      const { onValidation, annonce } = this.props;
-      onValidation(annonce.id);
-    }
-
-
-
+  handleValidation = () => {
+    const { onValidation, annonce } = this.props;
+    onValidation(annonce.id);
+  }
   render() {
     const { annonce } = this.props;
-
-    
-  
     return (
       <div className="car-ad">
           <div className="image">
@@ -30,7 +24,7 @@ class Annonce extends Component {
                 <i className="fas fa-trash-alt"></i>
               </div>
             </div>
-
+            
                 <div className="description">{annonce.idCarAnnounce.manufacturingYear +" | "+ annonce.idCarAnnounce.mileAge +" Km "} </div>
                 <div className="phrase">{annonce.description}</div>
                 <div className="price">
