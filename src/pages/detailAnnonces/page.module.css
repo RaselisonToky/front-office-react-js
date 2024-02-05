@@ -1,9 +1,16 @@
-.image{
+.contain{
+    /* width: 500px;
+    height: 280px;
+    margin: 0 auto */
+    
+    width: 775px;
+    height:511px ;
+    margin: 0 auto;
+    margin-left: 15px;
     float: left;
-  }
-  .sary{
-    width: 707px;
-  }
-  .back{
-    background-color: rgb(227, 225, 224);
-  }
+}
+.sary{
+    height: 100%;
+    position: relative ;
+    /* height:fit-content; */
+}

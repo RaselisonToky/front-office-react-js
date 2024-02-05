@@ -11,6 +11,7 @@ import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useNavigate } from 'react-router-dom';
+import LogInIcon from '@mui/icons-material/Login';
 
 const pages = [
   { label: 'Annonces', link: '/' },
@@ -104,6 +105,32 @@ function ResponsiveAppBar() {
               </Typography>
             ))}
           </Box>
+          
+          <Box sx={{ display: 'flex', alignItems: 'center', marginRight: '100px' }}>
+            <IconButton
+                size="large"
+                aria-label="log in"
+                color="inherit"
+                onClick={handleLogout}
+            >
+                <LogInIcon /> {/* Utilisation de l'icône "LogIn" */}
+                <Typography
+                    variant="h6"
+                    noWrap
+                    sx={{
+                        fontSize: 16,
+                        fontFamily: 'system-ui',
+                        fontWeight: 400,
+                        color: 'white',
+                        textDecoration: 'none',
+                        ml: 1, 
+                    }}
+                >
+                    Log In
+                </Typography>
+            </IconButton>
+        </Box>
+
 
           <Box sx={{ display: 'flex', alignItems: 'center', marginRight: '100px' }}>
             {/* Eto ny Log out */}
@@ -131,6 +158,8 @@ function ResponsiveAppBar() {
             </IconButton>
           </Box>
 
+
+              
           <Box
             sx={{
               flexGrow: 1,

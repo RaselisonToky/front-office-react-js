@@ -1,0 +1,98 @@
+.sary{
+    width: 730px;
+    height: 421px;
+}
+
+/* DESCRIPTION */
+.container{
+    text-align: left;
+    width: 400px;
+    margin-left: 64%;
+    /* background-color: chocolate; */
+    height: 511px;
+    margin-top: 4%;
+}
+.marque{
+    font-size: 24px;
+    font-weight: 700;
+    color:  #003e70;
+}
+.description{
+    text-align: center;
+}
+
+/* DETAILS */
+.d{
+    padding-bottom: 8px;
+    font-size: xx-large;
+    color: #0d4f78;
+}
+
+.trait{
+    width: 70px;
+    height: 3px;
+    background-color: #f37121;
+    display: inline-flex;
+}
+
+.details{
+    display: flex;
+    justify-content: center;
+    /* background-color: aliceblue; */
+    position: center;
+    margin-left: 9%;
+    width:85%
+}
+.colonne {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 0 10px;
+    align-items: baseline;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+.cadre{
+    background-color: #fafafa;
+    height: 123px;
+    width: 210px;
+    margin-right: 41px;
+    text-align: center;
+    color: #1a1a1a;
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-top: 28px;
+}
+.titre{
+    margin-top: 10px;
+    width: 100%;
+    min-width: 144px;
+    text-align: center;
+    color: #1a1a1a;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.iconss{
+    color: orange;
+}
+
+
+/* TABLEAU */
+.containerTable{
+    margin-top: 2%;
+}
+.tab{
+    /* background-color: antiquewhite; */
+    width: 87%;
+    margin-left: 10%;
+    text-align: left;
+}
+
+.entete{
+    margin-bottom: 20px;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 700;
+    margin-left: 10%;
+
+}
