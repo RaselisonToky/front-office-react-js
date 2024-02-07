@@ -1,0 +1,28 @@
+body {
+  background-color: rgb(242, 241, 241);
+}
+
+#search {
+  background-color: rgb(242, 241, 241);
+}
+
+.favoris {
+  background-color: rgb(242, 241, 241);
+  margin-top: 4%;
+  padding: 3% 0%;
+  display: flex;
+  color: #0d4f78;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+
+#fav {
+  width: 190%;
+  float: left;
+}
+
+#chevron {
+  float: right;
+  width: 20%;
+}

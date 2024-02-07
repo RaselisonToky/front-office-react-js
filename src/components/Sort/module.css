@@ -1,0 +1,27 @@
+.minmax {
+    /* background-color: rgb(208, 208, 208); */
+    width: fit-content;
+    text-align: left;
+    padding: 0%;
+}
+
+.form {
+    max-width: 400px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    margin-right: 10px;
+}
+
+span {
+    margin-right: 10px;
+}

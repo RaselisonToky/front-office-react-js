@@ -1,0 +1,65 @@
+#card {
+    padding-top: 1%;
+    width: 90%;
+    text-align: left;
+}
+
+.img {
+    float: left;
+    width: fit-content;
+}
+
+
+.detailAnnounce {
+    float: right;
+    width: 70%;
+    padding-top: 2%;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.titre {
+    height: 30px;
+    float: left;
+}
+
+.car {
+    font-size: 23px;
+    font-weight: 500;
+    float: left;
+}
+
+.coeur {
+    float: right;
+    }
+
+#details {
+    margin-top: 9%;
+    height: 40px;
+    display: flex;
+}
+
+#prix {
+    color: #0d4f78;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+#date {
+    font-size: 18px;
+}
+
+.det {
+    margin-left: 2%;
+}
+
+#foot {
+    margin-top: 3%;
+    height: 30px;
+}
