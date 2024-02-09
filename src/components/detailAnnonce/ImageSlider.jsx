@@ -41,7 +41,6 @@ const ImageSlider = ({slides}) =>{
         display: "flex",
         justifyContent: "center",
         width: "105%",
-        // backgroundColor: "aqua"
     };
     const dotStyles = {
         margin: "0 3px",
