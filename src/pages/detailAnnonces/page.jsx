@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from "../../components/Header"
 import ImageSlider from "../../components/detailAnnonce/ImageSlider";
 import styles from "./page.module.css";
@@ -6,20 +6,41 @@ import Description from "../../components/detailAnnonce/Description";
 import Detail from "../../components/detailAnnonce/Detail";
 import Tableau from "../../components/detailAnnonce/Table"
 import Footer from "../../components/Footer";
-const slides = [  
-  {url: 'http://localhost:3000/img-1.jpg', title:'sary'},
-  {url: 'http://localhost:3000/img-2.jpg', title:'sarykely'},
-  {url: 'http://localhost:3000/img-3.jpg', title:'farany'}
-];
+import axios from 'axios';
+
 function Annonces() {
-  // const voiture1 = { marque: 'Toyota', modèle: 'Camry', année: 2022, couleur: 'Bleu', prix: 25000 };
+  const [slides, setSlides] = useState([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const axiosConfig = {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    };
+
+    axios.get(`${process.env.REACT_APP_API}/api/v1/pictures/1`, axiosConfig)  
+      .then(response => {
+        const { listPicture } = response.data;
+        const slidesData = listPicture.map(picture => {
+          return {
+            url: `data:image/jpg;base64,${picture.imagebyte}`,
+            titre: 'hiii'
+          };
+        });
+        setSlides(slidesData);
+      })
+      .catch(error => {
+        console.error('Error fetching image URLs:', error);
+      });
+  }, []);
 
   return (
     <div>
       <Header />
       <br />
       <div className={styles.contain}>
-        <ImageSlider slides={slides} />
+        {slides && <ImageSlider slides={slides} />}
       </div>
       <Description />
       <Detail />
