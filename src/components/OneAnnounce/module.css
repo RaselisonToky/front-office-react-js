@@ -2,6 +2,10 @@
     padding-top: 1%;
     width: 90%;
     text-align: left;
+    border-bottom: 1px solid;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border-color: rgb(209, 209, 209);
 }
 
 .img {

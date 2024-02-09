@@ -1,5 +1,4 @@
 import React from 'react';
-import image from './voiture.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./module.css";
 
@@ -7,9 +6,9 @@ function OneAnnounce(props) {
   const { photo, brand, model, category, mileAge, transmission, fuelType, enginePower, date, price } = props;
 
   return (
-    <div className="row" id="card">
+    <div  className="row" id="card">
       <div className="img">
-        <img src={image} alt="" width={230} height={170} />
+        <img src={photo} alt="" width={230} height={170} />
       </div>
       <div className="detailAnnounce">
         <div className="titre" >{brand} {model} {category}</div>
@@ -49,10 +48,9 @@ function OneAnnounce(props) {
         </div>
         <div id="foot">
           <div className="left" id="date">Date de l'annonce: {date}</div>
-          <div className="right" id="prix">{price} Ar</div>
+          <div className="right" id="prix">{price} £</div>
         </div>
       </div>
-      <hr />
     </div>
   );
 }

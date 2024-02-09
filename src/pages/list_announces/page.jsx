@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Header from "../../components/Header";
 import DropdownInputMinMax from '../../components/DropdownInputMinMax';
 import DropdownSelectSearch from '../../components/DropdownSelectSearch';
@@ -6,12 +7,15 @@ import SelectSearch from '../../components/SelectSearch';
 import OneAnnounce from '../../components/OneAnnounce';
 import Sort from '../../components/Sort';
 import styles from "./page.module.css"
+import Footer from "../../components/Footer"
 
 
 function List_announces() {
+    const [announces, setAnnounces] = useState([]);
+
     const [min, setMin] = useState();
     const [max, setMax] = useState();
-    const [loading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const options = [
         { value: 'option1', label: 'Option 1' },
         { value: 'option2', label: 'Option 2' },
@@ -24,10 +28,27 @@ function List_announces() {
         setSelectedOption(newOption);
     };
 
+
+    useEffect(() => {
+        const fetchAnnounces = async () => {
+            try {
+                const response = await axios.get(`${ process.env.REACT_APP_API }/api/v1/announces`);
+                setAnnounces(response.data.listAnnounces);
+                setLoading(false);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des annonces :', error);
+                setLoading(false);
+            }
+        };
+
+        fetchAnnounces();
+    }, []);
+
+
     return (
-        <div>
+        <div className={styles.c}>
             <Header />
-            <div className="container" style={{ backgroundColor: 'white', marginTop: '1%' }}>
+            <div className={styles.container} style={{ backgroundColor: 'white', marginTop: '1%' }}>
                 <div className="row">
                     <div className="col-md-3">
                         <div className={styles.favoris} >
@@ -166,36 +187,32 @@ function List_announces() {
                             selectedValue={selectedOption}
                             loading={loading}
                         />
-
-                        <OneAnnounce
-                            photo={""}
-                            brand={"Brand"}
-                            model={"Model"}
-                            category={"Category"}
-                            mileAge={100}
-                            transmission={"Transmission"}
-                            fuelType={"Essence"}
-                            enginePower={300}
-                            date="12-12-2023"
-                            price={10000}
-                        />
-
-                        <OneAnnounce
-                            photo={""}
-                            brand={"Brand"}
-                            model={"Model"}
-                            category={"Category"}
-                            mileAge={100}
-                            transmission={"Transmission"}
-                            fuelType={"Essence"}
-                            enginePower={300}
-                            date="12-12-2023"
-                            price={10000}
-                        />
+                        {loading ? (
+                            <p>Chargement...</p>
+                        ) : (
+                            announces.map((announce, index) => (
+                                <OneAnnounce
+                                    key={index}
+                                    photo={announce.pictures.length > 0 ? announce.pictures[0] : ""}
+                                    brand={announce.car.brand.brand}
+                                    model={announce.car.model.model}
+                                    category={announce.car.category.category}
+                                    mileAge={announce.car.mileAge}
+                                    transmission={announce.car.transmission.name}
+                                    fuelType={announce.car.fuelType.label}
+                                    enginePower={announce.car.motorisation.enginePower}
+                                    date={announce.dateAnnounces}
+                                    price={announce.sellingPrice}
+                                    status={announce.status_intitule}
+                                    statusCss={announce.status_css}
+                                />
+                            ))
+                        )}
 
                     </div>
                 </div>
             </div> 
+            <Footer />
         </div>
     );
 }
