@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "./module.css";
 
 function OneAnnounce(props) {
-  const { photo, brand, model, category, mileAge, transmission, fuelType, enginePower, date, price } = props;
+  const {  brand, model, category, mileAge, transmission, fuelType, enginePower, date, price } = props;
 
   return (
     <div className="row" id="card">
