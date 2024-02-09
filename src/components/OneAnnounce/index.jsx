@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "./module.css";
 
 function OneAnnounce(props) {
-  const {  brand, model, category, mileAge, transmission, fuelType, enginePower, date, price } = props;
+  const { photo, brand, model, category, mileAge, transmission, fuelType, enginePower, date, price } = props;
 
   return (
     <div className="row" id="card">
@@ -49,7 +49,7 @@ function OneAnnounce(props) {
         </div>
         <div id="foot">
           <div className="left" id="date">Date de l'annonce: {date}</div>
-          <div className="right" id="prix">{price} £</div>
+          <div className="right" id="prix">{price} Ar</div>
         </div>
       </div>
       <hr />

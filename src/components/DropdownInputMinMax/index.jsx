@@ -3,7 +3,7 @@ import "./module.css";
 import { Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 export default function DropdownInputMinMax(props) {
-  const { label, min, max, onChangeMin, onChangeMax, designation, loading } = props;
+  const { label, title, min, max, onChangeMin, onChangeMax, designation, loading } = props;
   const [showDropdown, setShowDropdown] = useState(false);
 
   const onSubmit = (e) => {
@@ -15,7 +15,7 @@ export default function DropdownInputMinMax(props) {
   return (
     <div>
       <a
-        href="/"
+        href="#"
         onClick={(e) => { e.preventDefault(); setShowDropdown(!showDropdown); }}
       >
         <button
@@ -33,24 +33,24 @@ export default function DropdownInputMinMax(props) {
       {showDropdown && (
         <div className="dropdown-content" style={{ paddingLeft: '10px' }}> {/* Ajout de la classe dropdown-content */}
           <Form onSubmit={onSubmit} className="form" style={{ marginTop: '10px' }}>
-            <div className="input-container">
+            <div className="input">
               <Form.Group controlId="minInput" className="input">
                 <Form.Control
                   type="number"
                   value={min}
                   onChange={onChangeMin}
-                  placeholder="Minimum"
-                  style={{ borderRadius: '3px', width: '100px' }}
+                  placeholder="Min"
+                  style={{ borderRadius: '3px', width: '90%' }}
                 />
               </Form.Group>
-              <span> - </span>
+              {/* <span> - </span> */}
               <Form.Group controlId="maxInput" className="input">
                 <Form.Control
                   type="number"
                   value={max}
                   onChange={onChangeMax}
-                  placeholder="Maximum"
-                  style={{ borderRadius: '3px', width: '100px' }}
+                  placeholder="Max"
+                  style={{ borderRadius: '3px', width: '90%' }}
                 />
               </Form.Group>
               <Button
@@ -59,7 +59,6 @@ export default function DropdownInputMinMax(props) {
                   backgroundColor: '#e87524',
                   color: 'white',
                   border: 'none',
-                  marginLeft: '2px',
                   borderRadius: '3px'
                 }}
                 disabled={loading}>

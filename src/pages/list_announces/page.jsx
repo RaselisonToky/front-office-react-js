@@ -11,7 +11,7 @@ import styles from "./page.module.css"
 function List_announces() {
     const [min, setMin] = useState();
     const [max, setMax] = useState();
-    const [loading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const options = [
         { value: 'option1', label: 'Option 1' },
         { value: 'option2', label: 'Option 2' },
@@ -47,8 +47,8 @@ function List_announces() {
 
                         <div style={{
                             backgroundColor: 'rgb(242, 241, 241)',
-                            paddingBottom:'5%'
-                            }}
+                            paddingBottom: '5%'
+                        }}
                         >
                             <SelectSearch
                                 label={"Marque"}
@@ -140,20 +140,21 @@ function List_announces() {
                                 loading={loading}
                             />
                             <hr />
-                            <button
-                                href="#"
-                                style={{
-                                    width:'90%',
-                                    border:'solid 1px #0d4f78',
-                                    backgroundColor:'transparent',
-                                    borderRadius:'3px',
-                                    height:'35px',
-                                    color:'#0d4f78',
+                            <a href="/AdvancedSearch">
+                                <button
+                                    style={{
+                                        width: '90%',
+                                        border: 'solid 1px #0d4f78',
+                                        backgroundColor: 'transparent',
+                                        borderRadius: '3px',
+                                        height: '35px',
+                                        color: '#0d4f78',
 
-                                }}
-                            >
-                                Recheche detaillee
-                            </button>
+                                    }}
+                                >
+                                    Recheche detaillee
+                                </button>
+                            </a>
                         </div>
 
 

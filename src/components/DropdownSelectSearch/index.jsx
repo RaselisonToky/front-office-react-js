@@ -20,7 +20,7 @@ export default function DropdownSelectSearch(props) {
   return (
     <div>
       <a
-        href="/"
+        href="#"
         onClick={(e) => { e.preventDefault(); setShowDropdown(!showDropdown); }}
       >
         <button
@@ -38,7 +38,7 @@ export default function DropdownSelectSearch(props) {
       {showDropdown && (
         <div className="dropdown-content" style={{ paddingLeft: '10px' }}> {/* Ajout de la classe dropdown-content */}
           <Form onSubmit={onSubmit} className="form">
-            <div className="select" style={{marginTop:'3%'}}>
+            <div className="select" style={{margin:'3% auto'}}>
               <br />
               <Form.Select
                 value={selectedValue ? selectedValue.value : ''}
@@ -46,7 +46,7 @@ export default function DropdownSelectSearch(props) {
                 onChange={handleChange}
                 style={{
                   borderRadius: '3px',
-                  width: '225px',
+                  width: '100%',
                 }}
               >
                 {options.map((option) => (
