@@ -9,7 +9,7 @@ import styles from "./page.module.css"
 function AdvancedSearch() {
     const [min, setMin] = useState();
     const [max, setMax] = useState();
-    const [loading, setLoading] = useState(false);
+    const [loading] = useState(false);
     const options = [
         { value: 'option1', label: 'Option 1' },
         { value: 'option2', label: 'Option 2' },
