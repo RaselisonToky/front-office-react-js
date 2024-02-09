@@ -1,0 +1,42 @@
+.head {
+  background-color: white;
+  height:10vh;
+  text-align: left;
+  padding: 1%;
+}
+#input{
+  margin-top: 0.4%;
+}
+#myInput{
+  margin: 0.4% 0 0 5%;
+}
+#titre{
+  font-size: 25px;
+}
+.section {
+  background-color: white;
+  display: flex;
+  padding: 0% 2% 1% 0%;
+}
+.section2 {
+  background-color: white;
+  padding: 0% 2% 1% 0%;
+}
+.selects {
+  margin-left: 5%;
+}
+
+.selects2 {
+  margin-left: 3%;
+}
+
+.bigSection {
+  background-color: white;
+  padding: 1%;
+  text-align: left;
+}
+
+.search {
+  background-color: white;
+  padding: 1%;
+}

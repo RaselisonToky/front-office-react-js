@@ -1,0 +1,13 @@
+.inputs {
+  display: flex;
+  margin-top: 1%;
+  /* background-color: blue; */
+  width: fit-content;
+}
+.label{
+  text-align: left;
+  /* background-color: aquamarine; */
+  height: 100%;
+}
+/* . { */
+/* } */
