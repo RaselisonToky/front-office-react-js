@@ -49,7 +49,7 @@ function OneAnnounce(props) {
         </div>
         <div id="foot">
           <div className="left" id="date">Date de l'annonce: {date}</div>
-          <div className="right" id="prix">{price} Ar</div>
+          <div className="right" id="prix">{price} £</div>
         </div>
       </div>
       <hr />
