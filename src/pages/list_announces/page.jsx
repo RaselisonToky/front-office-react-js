@@ -194,7 +194,7 @@ function List_announces() {
 
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
     );
 }
