@@ -7,16 +7,18 @@ const ImageSlider = ({slides}) =>{
         height: "100%",
         position: "relative",
     };
-    const slideStyles = {
-        // width:' 86%',
-        // height: '168%',
+    const slideStyles = slides[currentIndex] && slides[currentIndex].url ? {
         width: "775px",
-        height:" 477px",
+        height: "477px",
         borderRadius: "10px",
-        backgroundPosition:"center",
+        backgroundPosition: "center",
         backgroundSize: "cover",
-        backgroundImage: `url(${slides[currentIndex].url})`,
-    }
+        backgroundImage:`url("${slides[currentIndex].url}")` 
+      } : null;
+      
+      console.log("hello");
+      console.log(slides[currentIndex].url);
+
     const leftArrowStyles = {
         position: 'absolute',
         top:'50%',
@@ -61,17 +63,25 @@ const ImageSlider = ({slides}) =>{
     const goToSlide = (slideIndex) => {
         setCurrentIndex(slideIndex);
     }
-    return(
-        <div className={sty.sary} style={sliderStyles} >
-            <div style={leftArrowStyles} onClick={goToPrevious} > <i className="fas fa-chevron-left"></i></div>
-            <div style={rightArrowStyles} onClick={goToNext}><i className="fas fa-chevron-right"></i></div>
-            <div style={slideStyles}> </div>  
-            <div style={dotsContainerStyles}>
-                {slides.map((slide,slideIndex) => (
-                    <div key={slideIndex} style={dotStyles} onClick={() => goToSlide(slideIndex)}><i className="fas-fa circle">o</i></div>
-                ))}
-            </div> 
+    return (
+        <div className={sty.sary} style={sliderStyles}>
+          <div style={leftArrowStyles} onClick={goToPrevious}>
+            <i className="fas fa-chevron-left"></i>
+          </div>
+          <div style={rightArrowStyles} onClick={goToNext}>
+            <i className="fas fa-chevron-right"></i>
+          </div>
+          {slides && slides.length > 0 && (
+            <div style={slideStyles}></div>
+          )}
+          <div style={dotsContainerStyles}>
+            {slides && slides.map((slide, slideIndex) => (
+              <div key={slideIndex} style={dotStyles} onClick={() => goToSlide(slideIndex)}>
+                <i className="fas fa-circle"></i>
+              </div>
+            ))}
+          </div>
         </div>
-    );
+      );
 };
 export default ImageSlider;
