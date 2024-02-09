@@ -20,7 +20,7 @@ export default function DropdownSelectSearch(props) {
   return (
     <div>
       <a
-        href="#"
+        href="/"
         onClick={(e) => { e.preventDefault(); setShowDropdown(!showDropdown); }}
       >
         <button
