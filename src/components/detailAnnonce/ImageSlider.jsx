@@ -16,8 +16,8 @@ const ImageSlider = ({slides}) =>{
         backgroundImage:`url("${slides[currentIndex].url}")` 
       } : null;
       
-      console.log("hello");
-      console.log(slides[currentIndex].url);
+    //   console.log("hello");
+    //   console.log(slides[currentIndex].url);
 
     const leftArrowStyles = {
         position: 'absolute',
@@ -78,6 +78,7 @@ const ImageSlider = ({slides}) =>{
             {slides && slides.map((slide, slideIndex) => (
               <div key={slideIndex} style={dotStyles} onClick={() => goToSlide(slideIndex)}>
                 <i className="fas fa-circle"></i>
+                {/* <img src={slide.url} alt="X" /> */}
               </div>
             ))}
           </div>

@@ -7,7 +7,6 @@ import Detail from "../../components/detailAnnonce/Detail";
 import Tableau from "../../components/detailAnnonce/Table"
 import Footer from "../../components/Footer";
 import axios from 'axios';
-import { toByteArray } from 'base64-js';
 
 function Annonces() {
   const [slides, setSlides] = useState([]);
@@ -24,16 +23,12 @@ function Annonces() {
       .then(response => {
         const { listPicture } = response.data;
         const slidesData = listPicture.map(picture => {
-          // const byteArray = toByteArray(picture.imagebyte);
-          // const base64String = byteArray.reduce((data, byte) => data + String.fromCharCode(byte), '');
           return {
-            url: `data:image/jpeg;base64,${picture.imagebyte}`,
+            url: `data:image/jpg;base64,${picture.imagebyte}`,
             titre: 'hiii'
           };
         });
         setSlides(slidesData);
-        console.log(slides);
-        console.log(slides[0].url);
       })
       .catch(error => {
         console.error('Error fetching image URLs:', error);
