@@ -3,7 +3,7 @@ import "./module.css";
 import { Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 export default function DropdownInputMinMax(props) {
-  const { label, title, min, max, onChangeMin, onChangeMax, designation, loading } = props;
+  const { label, min, max, onChangeMin, onChangeMax, designation, loading } = props;
   const [showDropdown, setShowDropdown] = useState(false);
 
   const onSubmit = (e) => {
@@ -15,7 +15,7 @@ export default function DropdownInputMinMax(props) {
   return (
     <div>
       <a
-        href="#"
+        href="/"
         onClick={(e) => { e.preventDefault(); setShowDropdown(!showDropdown); }}
       >
         <button
