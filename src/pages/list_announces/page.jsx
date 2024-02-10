@@ -10,36 +10,137 @@ import styles from "./page.module.css"
 import Footer from "../../components/Footer"
 import { Link } from 'react-router-dom'; // Importez Link
 function List_announces() {
-    const [announces, setAnnounces] = useState([]);
-
-    const [min, setMin] = useState();
-    const [max, setMax] = useState();
     const [loading, setLoading] = useState(false);
-    const options = [
-        { value: 'option1', label: 'Option 1' },
-        { value: 'option2', label: 'Option 2' },
-        { value: 'option3', label: 'Option 3' },
-    ];
-    const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(null);
 
-    const handleSelectChange = (newOption) => {
-        console.log('Option sélectionnée :', newOption);
-        setSelectedOption(newOption);
+  const [selectBrand, setSelectBrand] = useState(null);
+  const [brands, setBrands] = useState([]);
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API}/api/v1/brand/all`);
+        const mappedBrands = response.data.map(brand => ({
+          value: `${brand.id_brand}`,
+          label: brand.brand
+        }));
+        setBrands(mappedBrands);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des marques :', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBrands();
+  }, []);
+
+  const handleBrand = (optBrand) => {
+    setSelectBrand(optBrand);
+    console.log("Option sélectionnée :", optBrand);
+  };
+
+
+  const [selectModel, setSelectModel] = useState(null);
+  const [models, setModels] = useState([]);
+  useEffect(() => {
+    const fetchModels = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API}/api/v1/models/all`);
+        const mappedModels = response.data.map(model => ({
+          value: `${model.id_model}`,
+          label: model.model
+        }));
+        setModels(mappedModels);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des models :', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchModels();
+  }, []);
+
+  const handleModel = (optModel) => {
+    setSelectModel(optModel);
+    console.log("Option sélectionnée :", optModel);
+  };
+
+
+  const [selectCategorie, setSelectCategorie] = useState(null);
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API}/api/v1/categories/all`);
+        const mappedCategories = response.data.map(category => ({
+          value: `${category.id_category}`,
+          label: category.category
+        }));
+        setCategories(mappedCategories);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des categories :', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  const handleCategorie = (optCategorie) => {
+    setSelectCategorie(optCategorie);
+    console.log("Option sélectionnée :", optCategorie);
+  };
+
+    const [prixMin, setPrixMin] = useState();
+    const [prixMax, setPrixMax] = useState();
+
+    const [kmMin, setKmMin] = useState();
+    const [kmMax, setKmMax] = useState();
+
+    const [puissMin, setPuissMin] = useState();
+    const [puissMax, setPuissMax] = useState();
+
+    const [dateMin, setDateMin] = useState();
+    const [dateMax, setDateMax] = useState();
+
+    const handleSortChange = (selectedOption) => {
+        setSelectedOption(selectedOption);
     };
 
-
-    // const history = useHistory();
-
-    // const handleAnnounceClick = (id) => {
-    //     history.push(`/announces/${id}`); // Redirige vers la page de détails de l'annonce avec l'ID dans l'URL
-    // };
-
+    const [announces, setAnnounces] = useState([]);
     useEffect(() => {
         const fetchAnnounces = async () => {
             try {
-                const response = await axios.get(`${ process.env.REACT_APP_API }/api/v1/announces`);
-                setAnnounces(response.data.listAnnounces);
-                setLoading(false);
+              let url = `${process.env.REACT_APP_API}/api/v1/announces`;
+
+              if (selectedOption) {
+                  url += selectedOption.value;
+              }
+
+              const searchParams = {};
+
+              if (selectBrand) {
+                  searchParams.brand = selectBrand.value;
+              }
+
+              if (selectModel) {
+                  searchParams.model = selectModel.value;
+              }
+
+              if (selectCategorie) {
+                searchParams.model = selectCategorie.value;
+              }
+              if (selectBrand || selectModel || selectCategorie) {
+                  const response = await axios.get(`${process.env.REACT_APP_API}/api/v1/announces/advancedSearch`, {
+                      params: searchParams
+                  });
+
+                  setAnnounces(response.data.listAnnounces);
+              } else {
+                  const response = await axios.get(url);
+                  setAnnounces(response.data.listAnnounces);
+              }
+
+              setLoading(false);
             } catch (error) {
                 console.error('Erreur lors de la récupération des annonces :', error);
                 setLoading(false);
@@ -47,8 +148,7 @@ function List_announces() {
         };
 
         fetchAnnounces();
-    }, []);
-
+    }, [selectedOption, selectBrand, selectModel, selectCategorie]);
 
     return (
         <div className={styles.c}>
@@ -76,123 +176,105 @@ function List_announces() {
                             paddingBottom: '5%'
                         }}
                         >
-                            <SelectSearch
-                                label={"Marque"}
-                                options={options}
-                                onChange={handleSelectChange}
-                                selectedValue={selectedOption}
-                                loading={loading}
-                            />
-                            <SelectSearch
-                                label={"Modele"}
-                                options={options}
-                                onChange={handleSelectChange}
-                                selectedValue={selectedOption}
-                                loading={loading}
-                            />
-                            <SelectSearch
-                                label={"Categorie"}
-                                options={options}
-                                onChange={handleSelectChange}
-                                selectedValue={selectedOption}
-                                loading={loading}
-                            />
-                            <hr />
-                            <DropdownInputMinMax
-                                title={""}
-                                label={"Prix"}
-                                idMin={"prixMin"}
-                                idMax={"prixMax"}
-                                onChangeMin={(e) => setMin(e.target.value)}
-                                onChangeMax={(e) => setMax(e.target.value)}
-                                designation={"OK"}
-                                loading={loading}
-                                min={min}
-                                max={max}
-                            />
-                            <br />
-                            <DropdownInputMinMax
-                                title={""}
-                                label={"Mile age"}
-                                idMin={"prixMin"}
-                                idMax={"prixMax"}
-                                onChangeMin={(e) => setMin(e.target.value)}
-                                onChangeMax={(e) => setMax(e.target.value)}
-                                designation={"OK"}
-                                loading={loading}
-                                min={min}
-                                max={max}
-                            />
-                            <br />
-                            <DropdownInputMinMax
-                                title={""}
-                                label={"Engine power"}
-                                idMin={"prixMin"}
-                                idMax={"prixMax"}
-                                onChangeMin={(e) => setMin(e.target.value)}
-                                onChangeMax={(e) => setMax(e.target.value)}
-                                designation={"OK"}
-                                loading={loading}
-                                min={min}
-                                max={max}
-                            />
-                            <br />
-                            <DropdownInputMinMax
-                                title={""}
-                                label={"Date annonce"}
-                                idMin={"prixMin"}
-                                idMax={"prixMax"}
-                                onChangeMin={(e) => setMin(e.target.value)}
-                                onChangeMax={(e) => setMax(e.target.value)}
-                                designation={"OK"}
-                                loading={loading}
-                                min={min}
-                                max={max}
-                            />
-                            <hr />
-                            <DropdownSelectSearch
-                                label={"Transmission"}
-                                options={options}
-                                onChange={handleSelectChange}
-                                selectedValue={selectedOption}
-                                loading={loading}
-                            />
-                            <br />
-                            <DropdownSelectSearch
-                                label={"Type de carburant"}
-                                options={options}
-                                onChange={handleSelectChange}
-                                selectedValue={selectedOption}
-                                loading={loading}
-                            />
-                            <hr />
-                            <a href="/AdvancedSearch">
-                                <button
-                                    style={{
-                                        width: '90%',
-                                        border: 'solid 1px #0d4f78',
-                                        backgroundColor: 'transparent',
-                                        borderRadius: '3px',
-                                        height: '35px',
-                                        color: '#0d4f78',
+                        <SelectSearch
+                            label={"Marque"}
+                            options={brands}
+                            onChange={handleBrand}
+                            selectedValue={selectBrand}
+                            loading={loading}
+                        />
+                        <SelectSearch
+                            label={"Modele"}
+                            options={models}
+                            onChange={handleModel}
+                            selectedValue={selectModel}
+                            loading={loading}
+                        />
+                        <SelectSearch
+                            label={"Categorie"}
+                            options={categories}
+                            onChange={handleCategorie}
+                            selectedValue={selectCategorie}
+                            loading={loading}
+                        />
+                        <hr />
+                        <DropdownInputMinMax
+                            title={""}
+                            label={"Prix"}
+                            idMin={"prixMin"}
+                            idMax={"prixMax"}
+                            onChangeMin={(e) => setPrixMin(e.target.value)}
+                            onChangeMax={(e) => setPrixMax(e.target.value)}
+                            designation={"OK"}
+                            loading={loading}
+                            min={prixMin}
+                            max={prixMax}
+                        />
+                        <br />
+                        <DropdownInputMinMax
+                            title={""}
+                            label={"Kilometrage"}
+                            idMin={"kmMin"}
+                            idMax={"kmMax"}
+                            onChangeMin={(e) => setKmMin(e.target.value)}
+                            onChangeMax={(e) => setKmMax(e.target.value)}
+                            designation={"OK"}
+                            loading={loading}
+                            min={kmMin}
+                            max={kmMax}
+                        />
+                        <br />
+                        <DropdownInputMinMax
+                            title={""}
+                            label={"Puissance du moteur"}
+                            idMin={"puissMin"}
+                            idMax={"puissMax"}
+                            onChangeMin={(e) => setPuissMin(e.target.value)}
+                            onChangeMax={(e) => setPuissMax(e.target.value)}
+                            designation={"OK"}
+                            loading={loading}
+                            min={puissMin}
+                            max={puissMax}
+                        />
+                        <br />
+                        <DropdownInputMinMax
+                            title={""}
+                            label={"Date d'annonce"}
+                            idMin={"dateMin"}
+                            idMax={"dateMax"}
+                            onChangeMin={(e) => setDateMin(e.target.value)}
+                            onChangeMax={(e) => setDateMax(e.target.value)}
+                            designation={"OK"}
+                            loading={loading}
+                            min={dateMin}
+                            max={dateMax}
+                        />
+                        <hr />
+                        <a href="/AdvancedSearch">
+                            <button
+                                style={{
+                                    width: '90%',
+                                    border: 'solid 1px #0d4f78',
+                                    backgroundColor: 'transparent',
+                                    borderRadius: '3px',
+                                    height: '35px',
+                                    color: '#0d4f78',
 
-                                    }}
-                                >
-                                    Recheche detaillee
-                                </button>
-                            </a>
-                        </div>
-
+                                }}
+                            >
+                                Recheche detaillee
+                            </button>
+                        </a>
+                    </div>
 
                     </div>
                     <div className="col-md-9" id={styles.announces}>
                         <Sort
-                            options={options}
-                            onChange={handleSelectChange}
+                            onChange={handleSortChange}
                             selectedValue={selectedOption}
                             loading={loading}
                         />
-                        
+
                         {loading ? (
                             <p>Chargement...</p>
                         ) : (
@@ -219,7 +301,7 @@ function List_announces() {
 
                     </div>
                 </div>
-            </div> 
+            </div>
             <Footer />
         </div>
     );

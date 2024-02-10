@@ -1,36 +1,32 @@
-import React from 'react';
-import { Button, Form } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "./module.css";
+import React, { useState, useEffect } from 'react';
+import { Form } from 'react-bootstrap';
 
 export default function SelectSearch(props) {
-  const { label, options, onChange, selectedValue, loading } = props;
+  const { label, onChange, selectedValue, options } = props;
+  const [currentOption, setCurrentOption] = useState(selectedValue);
 
   const handleChange = (event) => {
     const selectedOption = options.find(option => option.value === event.target.value);
+    setCurrentOption(selectedOption);
     onChange(selectedOption);
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log("Selected Option:", selectedValue);
-  };
+  useEffect(() => {
+    setCurrentOption(selectedValue);
+  }, [selectedValue]);
 
   return (
     <div className="minmax">
       <h5 style={{ color: '#0d4f78' }}>
         {label}
       </h5>
-      <Form onSubmit={onSubmit} className="form">
+      <Form className="form">
         <div className="input-container">
           <Form.Select
-            value={selectedValue ? selectedValue.value : ''}
+            value={currentOption ? currentOption.value : ''}
             aria-label={label}
             onChange={handleChange}
-            style={{
-              borderRadius: '3px',
-              width: '20vh'
-            }}
+            style={{ borderRadius: '3px', width: '20vh' }}
           >
             {options.map((option) => (
               <option key={option.value} value={option.value}>
@@ -38,18 +34,6 @@ export default function SelectSearch(props) {
               </option>
             ))}
           </Form.Select>
-          <Button
-            type="submit"
-            style={{
-              backgroundColor: 'white',
-              color: '#0d4f78',
-              border: 'solid 1px #0d4f78',
-              marginLeft: 10,
-              borderRadius: '3px'
-            }}
-            disabled={loading}>
-            OK
-          </Button>
         </div>
       </Form>
     </div>

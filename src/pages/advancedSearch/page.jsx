@@ -1,20 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from "../../components/Header";
 import InputMinMax from '../../components/InputMinMax';
 import MySelect from '../../components/MySelect';
 import MyInput from '../../components/MyInput';
 import { Form, Button } from 'react-bootstrap';
-import styles from "./page.module.css"
+import styles from "./page.module.css";
+import axios from 'axios';
 
 function AdvancedSearch() {
-    const [min, setMin] = useState();
-    const [max, setMax] = useState();
-    const [loading] = useState(false);
-    const options = [
-        { value: 'option1', label: 'Option 1' },
-        { value: 'option2', label: 'Option 2' },
-        { value: 'option3', label: 'Option 3' },
-    ];
+    const [loading, setLoading] = useState(false);
+
+    const [brands, setBrands] = useState([]);
+    useEffect(() => {
+        const fetchBrands = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_API}/api/v1/brand/all`);
+                setBrands(response.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des marques :', error);
+                setLoading(false);
+            }
+        };
+        fetchBrands();
+    }, []);
+
+    const [models, setModels] = useState([]);
+    useEffect(() => {
+        const fetchModel = async () => {
+            try {
+                const response = await axios.get(`${ process.env.REACT_APP_API }/api/v1/models/all`);
+                setModels(response.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des modeles :', error);
+                setLoading(false);
+            }
+        };
+        fetchModel();
+    }, []);
+
+    const [categories, setCategories] = useState([]);
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await axios.get(`${ process.env.REACT_APP_API }/api/v1/categories/all`);
+                setCategories(response.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des categories :', error);
+                setLoading(false);
+            }
+        };
+        fetchCategories();
+    }, []);
+
+    const [prixMin, setPrixMin] = useState();
+    const [prixMax, setPrixMax] = useState();
+
+    const [kmMin, setKmMin] = useState();
+    const [kmMax, setKmMax] = useState();
+
+    const [puissMin, setPuissMin] = useState();
+    const [puissMax, setPuissMax] = useState();
+
+    const [dateMin, setDateMin] = useState();
+    const [dateMax, setDateMax] = useState();
+
+    const [motCle, setMotCle] = useState();
+
     const [selectedOption, setSelectedOption] = useState(null);
 
     const handleSelectChange = (newOption) => {
@@ -24,8 +78,8 @@ function AdvancedSearch() {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log("Min:", min);
-        console.log("Max:", max);
+        // console.log("Min:", min);
+        // console.log("Max:", max);
     };
 
     return (
@@ -48,14 +102,14 @@ function AdvancedSearch() {
                                 <InputMinMax
                                     title={""}
                                     label={"Date d'annonce"}
-                                    idMin={"prixMin"}
-                                    idMaPrix={"prixMax"}
-                                    onChangeMin={(e) => setMin(e.target.value)}
-                                    onChangeMax={(e) => setMax(e.target.value)}
+                                    idMin={"dateMin"}
+                                    idMax={"dateMax"}
+                                    onChangeMin={(e) => setDateMin(e.target.value)}
+                                    onChangeMax={(e) => setDateMax(e.target.value)}
                                     designation={"OK"}
                                     loading={loading}
-                                    min={min}
-                                    max={max}
+                                    min={dateMin}
+                                    max={dateMax}
                                 />
                             </div>
                             <br />
@@ -64,19 +118,19 @@ function AdvancedSearch() {
                                     title={""}
                                     label={"Prix"}
                                     idMin={"prixMin"}
-                                    idMaPrix={"prixMax"}
-                                    onChangeMin={(e) => setMin(e.target.value)}
-                                    onChangeMax={(e) => setMax(e.target.value)}
+                                    idMax={"prixMax"}
+                                    onChangeMin={(e) => setPrixMin(e.target.value)}
+                                    onChangeMax={(e) => setPrixMax(e.target.value)}
                                     designation={"OK"}
                                     loading={loading}
-                                    min={min}
-                                    max={max}
+                                    min={prixMin}
+                                    max={prixMax}
                                 />
                             </div>
                             <div id={styles.myInput}>
                                 <MyInput
                                     label={"Mot cle"}
-                                    value={(e) => setMin(e.target.value)}
+                                    value={(e) => setMotCle(e.target.value)}
                                     onChange={handleSelectChange}
                                     placeholder={"Entrer quelque chose"}
                                     loading={loading}
@@ -92,7 +146,10 @@ function AdvancedSearch() {
                             <div>
                                 <MySelect
                                     label={"Marque"}
-                                    options={options}
+                                    options={brands.map(brand => ({
+                                        value: brand.id_brand,
+                                        label: brand.brand
+                                      }))}
                                     onChange={handleSelectChange}
                                     selectedValue={selectedOption}
                                     loading={loading}
@@ -101,7 +158,10 @@ function AdvancedSearch() {
                             <div className={styles.selects2}>
                                 <MySelect
                                     label={"Modele"}
-                                    options={options}
+                                    options={models.map(model => ({
+                                        value: model.id_model,
+                                        label: model.model
+                                      }))}
                                     onChange={handleSelectChange}
                                     selectedValue={selectedOption}
                                     loading={loading}
@@ -110,7 +170,10 @@ function AdvancedSearch() {
                             <div className={styles.selects2}>
                                 <MySelect
                                     label={"Category"}
-                                    options={options}
+                                    options={categories.map(categorie => ({
+                                        value: categorie.id_category,
+                                        label: categorie.category
+                                      }))}
                                     onChange={handleSelectChange}
                                     selectedValue={selectedOption}
                                     loading={loading}
@@ -120,14 +183,14 @@ function AdvancedSearch() {
                                 <InputMinMax
                                     title={""}
                                     label={"Kilometrage"}
-                                    idMin={"prixMin"}
-                                    idMaPrix={"prixMax"}
-                                    onChangeMin={(e) => setMin(e.target.value)}
-                                    onChangeMax={(e) => setMax(e.target.value)}
+                                    idMin={"kmMin"}
+                                    idMax={"kmMax"}
+                                    onChangeMin={(e) => setKmMin(e.target.value)}
+                                    onChangeMax={(e) => setKmMax(e.target.value)}
                                     designation={"OK"}
                                     loading={loading}
-                                    min={min}
-                                    max={max}
+                                    min={kmMin}
+                                    max={kmMax}
                                 />
                             </div>
                         </div>
@@ -140,18 +203,18 @@ function AdvancedSearch() {
                             <div id={styles.input}>
                                 <InputMinMax
                                     title={""}
-                                    label={"Puissance"}
-                                    idMin={"prixMin"}
-                                    idMaPrix={"prixMax"}
-                                    onChangeMin={(e) => setMin(e.target.value)}
-                                    onChangeMax={(e) => setMax(e.target.value)}
+                                    label={"Puissance du moteur"}
+                                    idMin={"puissMin"}
+                                    idMax={"puissMax"}
+                                    onChangeMin={(e) => setPuissMin(e.target.value)}
+                                    onChangeMax={(e) => setPuissMax(e.target.value)}
                                     designation={"OK"}
                                     loading={loading}
-                                    min={min}
-                                    max={max}
+                                    min={puissMin}
+                                    max={puissMax}
                                 />
                             </div>
-                            <div className={styles.selects}>
+                            {/* <div className={styles.selects}>
                                 <MySelect
                                     label={"Transmission"}
                                     options={options}
@@ -168,7 +231,7 @@ function AdvancedSearch() {
                                     selectedValue={selectedOption}
                                     loading={loading}
                                 />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </Form>
