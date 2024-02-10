@@ -193,7 +193,7 @@ function List_announces() {
                             announces.map((announce, index) => (
                                 <OneAnnounce
                                     key={index}
-                                    photo={announce.pictures.length > 0 ? announce.pictures[0] : ""}
+                                    photo={announce.pictures.length > 0 ? announce.pictures[0].image : ""}
                                     brand={announce.car.brand.brand}
                                     model={announce.car.model.model}
                                     category={announce.car.category.category}
