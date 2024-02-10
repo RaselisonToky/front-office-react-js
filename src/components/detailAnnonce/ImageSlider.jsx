@@ -1,6 +1,6 @@
 import { useState } from "react";
 import sty from "./page.module.css";
-
+import 'bootstrap-icons/font/bootstrap-icons.css';
 const ImageSlider = ({slides}) =>{
     const [currentIndex,setCurrentIndex] = useState(0);
     const sliderStyles = {
@@ -66,18 +66,17 @@ const ImageSlider = ({slides}) =>{
     return (
         <div className={sty.sary} style={sliderStyles}>
           <div style={leftArrowStyles} onClick={goToPrevious}>
-            <i className="fas fa-chevron-left"></i>
-          </div>
+            <i className="bi bi-chevron-double-left"></i>          </div>
           <div style={rightArrowStyles} onClick={goToNext}>
-            <i className="fas fa-chevron-right"></i>
-          </div>
+            <i class="bi bi-chevron-double-right"></i>         
+        </div>
           {slides && slides.length > 0 && (
             <div style={slideStyles}></div>
           )}
           <div style={dotsContainerStyles}>
             {slides && slides.map((slide, slideIndex) => (
               <div key={slideIndex} style={dotStyles} onClick={() => goToSlide(slideIndex)}>
-                <i className="fas fa-circle"></i>
+                <i className="fas fa-circle"></i>o
                 {/* <img src={slide.url} alt="X" /> */}
               </div>
             ))}

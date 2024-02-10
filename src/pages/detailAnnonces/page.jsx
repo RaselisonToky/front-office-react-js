@@ -10,7 +10,9 @@ import axios from 'axios';
 
 function Annonces() {
   const [slides, setSlides] = useState([]);
-
+  const [announces , setAnnounces] = useState([]);
+  const [loading, setLoading] = useState(false);
+  // const bb = () => {};
   useEffect(() => {
     const token = localStorage.getItem('token');
     const axiosConfig = {
@@ -19,19 +21,27 @@ function Annonces() {
       }
     };
 
-    axios.get(`${process.env.REACT_APP_API}/api/v1/pictures/1`, axiosConfig)  
+    axios.get(`${process.env.REACT_APP_API}/api/v1/announces/1`, axiosConfig)  
       .then(response => {
-        const { listPicture } = response.data;
-        const slidesData = listPicture.map(picture => {
+        const { annonce } = response.data;
+        // console.log(annonce);
+        setAnnounces(annonce);
+        const slidesData = annonce.pictures.map(picture => {
           return {
-            url: `data:image/jpg;base64,${picture.imagebyte}`,
+            url: `data:image/jpg;base64,${picture.imageByte}`,
             titre: 'hiii'
           };
-        });
+        });    
+
+        console.log("hello babyy");
         setSlides(slidesData);
+        console.log(announces)
+
+        // console.log(slides);
       })
       .catch(error => {
         console.error('Error fetching image URLs:', error);
+        setLoading(false);
       });
   }, []);
 
@@ -40,10 +50,23 @@ function Annonces() {
       <Header />
       <br />
       <div className={styles.contain}>
-        {slides && <ImageSlider slides={slides} />}
+        <ImageSlider slides={slides} />
       </div>
-      <Description />
-      <Detail />
+      {loading ? (
+          <p>Chargement...</p>
+      ) : (
+         
+        <Description 
+          marque={announces.car.brand.brand} 
+          model={announces.car.model.model}
+          prix={announces.sellingPrice}
+          description={announces.description}
+          // marque={announces.car.id} 
+        />
+        )}
+      <Detail 
+        // carburant = {announces.}
+      />
       <Tableau/>
       <br />
       <Footer/>
