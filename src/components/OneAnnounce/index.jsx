@@ -8,7 +8,7 @@ function OneAnnounce(props) {
   return (
     <div  className="row" id="card">
       <div className="img">
-        <img src={photo} alt="" width={230} height={170} />
+        <img src={`data:image/jpg;base64,${photo}`} alt="" width={230} height={170} />
       </div>
       <div className="detailAnnounce">
         <div className="titre" >{brand} {model} {category}</div>
@@ -48,7 +48,7 @@ function OneAnnounce(props) {
         </div>
         <div id="foot">
           <div className="left" id="date">Date de l'annonce: {date}</div>
-          <div className="right" id="prix">{price} £</div>
+          <div className="right" id="prix">{price} €</div>
         </div>
       </div>
     </div>

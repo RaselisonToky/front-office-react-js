@@ -15,7 +15,7 @@ import LogInIcon from '@mui/icons-material/Login';
 
 const pages = [
   { label: 'Annonces', link: '/' },
-  { label: 'Details Annonce', link: '/DetailAnnonces' },
+  // { label: 'Details Annonce', link: '/DetailAnnonces' },
   { label: 'Historique de mes annonces', link: '/historique' },
   { label: 'Mes favoris', link: '/ajoutMarque' },
 

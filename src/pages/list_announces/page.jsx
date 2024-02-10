@@ -8,8 +8,7 @@ import OneAnnounce from '../../components/OneAnnounce';
 import Sort from '../../components/Sort';
 import styles from "./page.module.css"
 import Footer from "../../components/Footer"
-
-
+import { Link } from 'react-router-dom'; // Importez Link
 function List_announces() {
     const [announces, setAnnounces] = useState([]);
 
@@ -28,6 +27,12 @@ function List_announces() {
         setSelectedOption(newOption);
     };
 
+
+    // const history = useHistory();
+
+    // const handleAnnounceClick = (id) => {
+    //     history.push(`/announces/${id}`); // Redirige vers la page de détails de l'annonce avec l'ID dans l'URL
+    // };
 
     useEffect(() => {
         const fetchAnnounces = async () => {
@@ -187,13 +192,15 @@ function List_announces() {
                             selectedValue={selectedOption}
                             loading={loading}
                         />
+                        
                         {loading ? (
                             <p>Chargement...</p>
                         ) : (
                             announces.map((announce, index) => (
+                                <Link to={`/DetailAnnonces/${announce.id}`}>
                                 <OneAnnounce
                                     key={index}
-                                    photo={announce.pictures.length > 0 ? announce.pictures[0].image : ""}
+                                    photo={announce.pictures.length > 0 ? announce.pictures[0].imageByte : ""}
                                     brand={announce.car.brand.brand}
                                     model={announce.car.model.model}
                                     category={announce.car.category.category}
@@ -206,6 +213,7 @@ function List_announces() {
                                     status={announce.status_intitule}
                                     statusCss={announce.status_css}
                                 />
+                                </Link>
                             ))
                         )}
 
